@@ -37,7 +37,7 @@ function App() {
 
   const [square, setSquare] = useState({
     color: '#05F2F2',
-    speed: 500,
+    speed: 501,
     generation: 1
   })
 

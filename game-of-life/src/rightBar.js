@@ -2,12 +2,6 @@ import React from 'react';
 
 function RightBar() {
 
-
-
-
-
-
-
     return (
         <div className='righty' >
             <p>What's Alive?</p>

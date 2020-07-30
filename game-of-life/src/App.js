@@ -37,7 +37,7 @@ function App() {
 
   const [square, setSquare] = useState({
     color: '#05F2F2',
-    speed: 501,
+    speed: 500,
     generation: 1
   })
 
@@ -67,7 +67,7 @@ function App() {
         for (let i = 0; i < numRows; i++) {
           for (let k = 0; k < numCols; k++) {
             let neighbors = 0;
-            operations.forEach(([x, y]) => { // checks to see what the neighbors are
+            operations.forEach(([x, y]) => { // checks to see what state the neighbors are
               const newI = i + x;
               const newK = k + y;
               if (newI >= 0 && newI < numRows && newK >= 0 && newK < numCols) { // keeps us in the grid border
@@ -75,7 +75,7 @@ function App() {
               }
             })
 
-            if (neighbors < 2 || neighbors > 3) { // determines whether to kill cell. 
+            if (neighbors < 2 || neighbors > 3) { // determines whether to kill a cell. 
               gridCopy[i][k] = 0;
             } else if (g[i][k] === 0 && neighbors === 3) { // determines whether to make cell come to life.
               gridCopy[i][k] = 1;
@@ -86,12 +86,10 @@ function App() {
         }
       });
     });
-    square.generation += 1
+    square.generation += 1 //counter for generations
     setTimeout(runSimulation, square.speed)
     
   }, [square.speed, square.generation])
-
-  // console.log(grid);
 
   return (
     <div className='backpic'>
@@ -113,6 +111,7 @@ function App() {
           >
             {running ? 'stop' : 'start'}
           </button>
+
           <button 
             className='button'
             onClick={() => {
@@ -128,6 +127,7 @@ function App() {
           >
             random
           </button>
+
           <button 
             className='button'
             onClick={() => {
@@ -151,6 +151,7 @@ function App() {
               handleChange={handleChange}
             />
           </div>
+
           <div className='theGrid'
             style={{
               display: 'grid',
@@ -180,9 +181,11 @@ function App() {
               ))
             )}
           </div>
+
           <div className='rightBar'>
             <RightBar />
           </div>
+
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef, useEffect} from 'react';
+import React, {useState, useCallback, useRef} from 'react';
 import './App.css';
 import produce from 'immer';
 
@@ -40,10 +40,6 @@ function App() {
     speed: 500,
     generation: 1
   })
-
-
-
-  console.log('running state: ', running)
 
   const handleSelectChanges = e => { // change handler function for color
     const valueSelected = e.target.value;
@@ -90,17 +86,10 @@ function App() {
         }
       });
     });
-
-    // if (produce) {
-    //   setSquare(square.generation += 1)
-    // }
-  
-    // setSquare(square.generation++)
+    square.generation += 1
     setTimeout(runSimulation, square.speed)
     
-  }, [square.speed])
-
-  console.log('generation: ', square.generation)
+  }, [square.speed, square.generation])
 
   // console.log(grid);
 
@@ -143,6 +132,7 @@ function App() {
             className='button'
             onClick={() => {
               setGrid(generateEmptyGrid())
+              square.generation = 1
             }}
           >
             clear

@@ -45,6 +45,8 @@ const LeftBar = props => {
                     </select>
                 </div>
 
+                <div className='generation' >Generation: {props.generation}</div>
+
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef} from 'react';
+import React, {useState, useCallback, useRef, useEffect} from 'react';
 import './App.css';
 import produce from 'immer';
 
@@ -22,7 +22,7 @@ const operations = [ //neighbor locations around a cell.
 const generateEmptyGrid = () => {
   const rows = [];
   for (let i = 0; i < numRows; i++){
-    rows.push(Array.from(Array(numCols), () => 0));
+    rows.push(Array.from(Array(numCols), () => 0)); //creates an empty grid
   }
 
   return rows;
@@ -37,16 +37,21 @@ function App() {
 
   const [square, setSquare] = useState({
     color: '#05F2F2',
-    speed: 500
+    speed: 500,
+    generation: 1
   })
 
-  const handleSelectChanges = e => {
+
+
+  console.log('running state: ', running)
+
+  const handleSelectChanges = e => { // change handler function for color
     const valueSelected = e.target.value;
     setSquare({ ...square, [e.target.name]: valueSelected });
     console.log('Square color: ', e.target.name, valueSelected, square);
   };
 
-  const handleChange = e => {
+  const handleChange = e => { // change hanlder function for speed
     const valueSelected = parseInt(e.target.value, 10);
     setSquare({ ...square, [e.target.name]: valueSelected });
     console.log('Square speed: ', e.target.name, valueSelected, square);
@@ -62,14 +67,14 @@ function App() {
 
     //simulation logic
     setGrid((g) => {
-      return produce(g, gridCopy => {
+      return produce(g, gridCopy => { //g is current grid
         for (let i = 0; i < numRows; i++) {
           for (let k = 0; k < numCols; k++) {
             let neighbors = 0;
-            operations.forEach(([x, y]) => {
+            operations.forEach(([x, y]) => { // checks to see what the neighbors are
               const newI = i + x;
               const newK = k + y;
-              if (newI >= 0 && newI < numRows && newK >= 0 && newK < numCols) {
+              if (newI >= 0 && newI < numRows && newK >= 0 && newK < numCols) { // keeps us in the grid border
                 neighbors += g[newI][newK]
               }
             })
@@ -78,14 +83,24 @@ function App() {
               gridCopy[i][k] = 0;
             } else if (g[i][k] === 0 && neighbors === 3) { // determines whether to make cell come to life.
               gridCopy[i][k] = 1;
+              
             }
+            
           }
         }
       });
     });
-    
+
+    // if (produce) {
+    //   setSquare(square.generation += 1)
+    // }
+  
+    // setSquare(square.generation++)
     setTimeout(runSimulation, square.speed)
+    
   }, [square.speed])
+
+  console.log('generation: ', square.generation)
 
   // console.log(grid);
 
@@ -141,6 +156,7 @@ function App() {
             <LeftBar 
               color={square.color}
               speed={square.speed}
+              generation={square.generation}
               handleSelectChanges={handleSelectChanges}
               handleChange={handleChange}
             />
@@ -170,6 +186,7 @@ function App() {
                     margin: 1
                   }} 
                 />
+                
               ))
             )}
           </div>

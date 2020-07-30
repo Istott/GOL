@@ -1,16 +1,6 @@
 import React from 'react';
 
 const LeftBar = props => {
-    console.log('left props: ', props)
-
-
-    // const handleSelectChanges = e => {
-    //     const valueSelected = e.target.value;
-    //     setSquare({ ...square, [e.target.name]: valueSelected });
-    //     console.log('Square color: ', e.target.name, valueSelected, square);
-    //   };
-
-
 
 
     return (

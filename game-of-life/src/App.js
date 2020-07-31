@@ -53,7 +53,7 @@ function App() {
     console.log('Square speed: ', e.target.name, valueSelected, square);
   };
 
-  const runningRef = useRef();
+  const runningRef = useRef(); //helps runSimulation with running state. 
   runningRef.current = running
 
   const runSimulation = useCallback(() => {
@@ -173,7 +173,6 @@ function App() {
                     width: 12, 
                     height: 10, 
                     backgroundColor: grid[i][k] ? square.color : undefined,
-                    // border: 'solid 2px black'
                     margin: 1
                   }} 
                 />

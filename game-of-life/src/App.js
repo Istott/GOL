@@ -97,7 +97,13 @@ function App() {
         <h1>Its Alive</h1>
         <div className='buttons'>
 
-          <div className='options' >More Options</div>
+          <div className='options'>More Options</div>
+          {/* <button 
+            className='options' 
+            onClick=
+          >
+            More Options
+          </button> */}
 
           <button 
             className='button'
